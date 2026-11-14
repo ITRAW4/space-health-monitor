@@ -1,0 +1,4 @@
+Parameter / Metric,Measured value,Unit,Approximate ( Yes/No),NASA Source / Verified Link
+Career Space Permissible Exposure Limit,600,mSv,No,https://www.nasa.gov/wp-content/uploads/2023/12/ochmo-tb-020-radiation-protection.pdf
+GCR Deep Space Dose Rate Limit,1.3,mSv/Day,No,https://www.nasa.gov/wp-content/uploads/2023/12/ochmo-tb-020-radiation-protection.pdf
+GCR Planetary Surface Dose Rate Limit,0.9,mSv/Day,No,https://www.nasa.gov/wp-content/uploads/2023/12/ochmo-tb-020-radiation-protection.pdf
