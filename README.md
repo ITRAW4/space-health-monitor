@@ -10,6 +10,7 @@ with early-warning alerts and a simulated "smart dust" sensor swarm concept.
 - NASA Human Research Program (HRP): hazards and risks pages
 - NASA OCHMO radiation protection brief (NASA-STD-3001 Vol. 1): radiation limits
 - Data sheets prepared by our data analysts
+- HRP hazards table: compiled by the team from NASA HRP pages (nasa.gov/hrp/hazards, nasa.gov/hrp/risks)
 
 ## Simulated parts (honest note)
 - Astronaut exposure index and crew stress index are simulated, not real measurements.
