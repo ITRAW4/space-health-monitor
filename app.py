@@ -92,3 +92,51 @@ else:
     st.info("Run sensors.py to generate the simulated swarm data.")
 st.caption("Risk thresholds are simple team-defined rules. "
            "The astronaut index is a simulation, not real astronaut data.")
+import numpy as np
+import plotly.graph_objects as go
+
+st.header("5) Orbital pollution and astronaut vitals (simulated)")
+level = st.slider("Orbital pollution level (simulated)", 0, 8, 3)
+
+# Earth + pollution dots around it
+rng = np.random.default_rng(7)
+N = 1400
+r = rng.uniform(1.15, 1.9, N)
+theta = rng.uniform(0, 2 * np.pi, N)
+phi = np.arccos(rng.uniform(-1, 1, N))
+x = r * np.sin(phi) * np.cos(theta)
+y = r * np.sin(phi) * np.sin(theta)
+z = r * np.cos(phi)
+n = 100 + level * 150
+
+u, v = np.mgrid[0:2 * np.pi:60j, 0:np.pi:30j]
+earth = go.Figure()
+earth.add_trace(go.Surface(x=np.cos(u) * np.sin(v), y=np.sin(u) * np.sin(v), z=np.cos(v),
+                           colorscale="Blues", showscale=False, hoverinfo="skip"))
+earth.add_trace(go.Scatter3d(x=x[:n], y=y[:n], z=z[:n], mode="markers",
+                             marker=dict(size=2, color="red", opacity=0.8),
+                             name="pollution"))
+earth.update_layout(height=500, margin=dict(l=0, r=0, t=0, b=0),
+                    scene=dict(xaxis_visible=False, yaxis_visible=False, zaxis_visible=False))
+st.plotly_chart(earth, width="stretch")
+
+# Astronaut vitals driven by the pollution level (simulated)
+hr = 65 + 4 * level
+spo2 = round(98 - 0.4 * level, 1)
+stress = 20 + 6 * level
+dose = 10 + 6 * level
+
+st.subheader("Astronaut vitals (simulated)")
+a, b, c, d = st.columns(4)
+a.metric("Heart rate", f"{hr} bpm", f"{hr - 65:+d}", delta_color="inverse")
+b.metric("Blood oxygen (SpO2)", f"{spo2}%", f"{spo2 - 98:+.1f}")
+c.metric("Stress index", stress, f"{stress - 20:+d}", delta_color="inverse")
+d.metric("Radiation exposure index", dose, f"{dose - 10:+d}", delta_color="inverse")
+
+if level >= 6:
+    st.error("High pollution: crew should move to the shielded area.")
+elif level >= 4:
+    st.warning("Elevated pollution: monitor crew vitals closely.")
+
+st.caption("Simulation: dots and vitals are illustrative, not real measurements. "
+           "The link between pollution level and vitals is a team assumption.")
